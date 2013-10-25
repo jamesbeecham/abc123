@@ -1,0 +1,24 @@
+extends layout
+
+block content
+	div#page1(data-role='page')
+		div(data-theme='a',data-role='header')
+			h3 Header
+	div(id="rankings",data-role='content')
+		script.
+			function fillRanking() {
+				var rankArray = !{ranking};
+				alert("inside fill ranking");
+				var divEle = document.getElementById("rankings");
+				for (var i = 0; i<rankArray.length; i++) {
+					divEle.innerHTML += "<a href=\"#page1\" data-role=\"button\" >" + rankArray[i] + "</a>";
+				}
+			}
+			
+			fillRanking();
+		a(data-role='button',href='#page1') Button
+		a(data-role='button',href='#page1') Button
+		a(data-role='button',href='#page1') Button
+	div(data-theme='a',data-role='footer',data-position='fixed')
+		h3 Footer
+
