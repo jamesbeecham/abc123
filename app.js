@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var m = require('./public/javascripts/something.js');
 
 var app = express();
 
@@ -28,14 +29,20 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/login', function(req, res){
-	console.log("here1");
-//Check if the user is already logged
-if(req.session.userAuthenticated){
-    console.log('already logged!');
-}
-	console.log("here2"); 
-}); 
+app.get('/external', function(req, res){
+	var arr2 = new Array();
+
+
+//	for (var i = 1000; i < 4600; i+=10) {
+//		if (i
+//		arr.push(i);
+
+	arr2[0] = 'aaa';
+	console.log('made it here');
+	res.render('external', {
+	unit: JSON.stringify(arr2),
+	fs : { sayHi: m.doSomething } });
+});
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

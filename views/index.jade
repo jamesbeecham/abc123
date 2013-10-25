@@ -8,6 +8,10 @@ block content
 			ul(data-role='listview' data-insert='true' data-diverdertheme='b')
 				li(id='Units' data-role='list-divider') Units
 					script.
+						function changePage() {
+							console.log('changing page');
+						}
+					script.
 						function fillUnits() {
 							console.log('filling units');
 							var unitsArr = !{units};
@@ -16,7 +20,7 @@ block content
 							alert('In placing units');
 							var divEle = document.getElementById("Units");
 							for (var i = 0; i<unitsArr.length; i++) {
-								divEle.innerHTML += "<li><a id=\"btn\" href=\"option1.html\" data-role=\"button\">" + unitsArr[i] + "</a></li>";
+								divEle.innerHTML += "<li><a id=\"btn\" href=\"external\" data-role=\"button\" on-click=\"changePage()\">" + unitsArr[i] + "</a></li>";
 							}
 						}
 						fillUnits();
