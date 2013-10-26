@@ -3,7 +3,7 @@ extends layout
 block content
 	div(data-role='page' data-theme='a')
 		div(data-role='header')
-			h1 235 W. Van Buren Package System
+			h1 235 WVB
 		div(data-role='content')
 			ul(data-role='listview' data-insert='true' data-diverdertheme='b')
 				li(id='Units' data-role='list-divider') Units
@@ -15,16 +15,13 @@ block content
 						function fillUnits() {
 							console.log('filling units');
 							var unitsArr = !{units};
-							var func = !{fs.sayHi};
-							func(unitsArr[0]);
-							alert('In placing units');
 							var divEle = document.getElementById("Units");
 							for (var i = 0; i<unitsArr.length; i++) {
-								divEle.innerHTML += "<li><a id=\"btn\" href=\"external\" data-role=\"button\" on-click=\"changePage()\">" + unitsArr[i] + "</a></li>";
+								divEle.innerHTML += "<li><a id=\"btn\" href=\"external?id=" + unitsArr[i] + "\" data-role=\"button\" on-click=\"changePage()\">" + unitsArr[i] + "</a></li>";
 							}
 						}
 						fillUnits();
 		div(data-role='footer')
-			h4 Hello World
+			h4 Call 512-587-0784 if broken
 
 

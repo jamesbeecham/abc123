@@ -1,0 +1,34 @@
+extends layout
+
+block content
+	div(data-role='page' data-theme='a')
+		div(data-role='header')
+			h1 235 W. Van Buren Package System
+		div(data-role='content')
+			table(data-mode='reflow' data-role='table' summary='This is a table baby')
+				caption Travel Iternary
+					thread
+						tr
+							th(scope='col') Name
+							th(scope='col') Name2
+							th(scope='col') email
+							th(scope='col') phonenumber
+					tfoot
+						tr
+							td(colspan='5') Total: 3 flihgts
+					tbody
+						tr
+							th
+								a(class='ui-table-cell-label') Name 
+								James B
+							td 
+								a(class='ui-table-cell-label') email
+								Boston
+							td 
+								a(class='ui-table-cell-label') phonenumber
+								Rachel
+
+		div(data-role='footer')
+			h4 Hello World
+
+

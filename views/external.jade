@@ -3,10 +3,24 @@ extends layout
 block content
 	div(data-role='page' data-theme='a')
 		div(data-role='header')
-			h1 235 W. Van Buren Package System
-		div(data-role='content')
-			p This should show up
+			h1 235 WVB
+		div(id='table' data-role='content')
+			script.
+				function makeTable() {
+					var unit = !{dest};
+					var divEle = document.getElementById("table");
+					divEle.innerHTML += "You have selected unit <font color=\"#00CCFF\">" + unit.Unit + "</font>, is this correct?<br><br>";	
+					for(var ii = 0; ii<unit.Name.length; ii++) 
+						divEle.innerHTML += "Name:    <font color=\"#00CCFF\">" + unit.Name[ii] + "</font><br>";
+					divEle.innerHTML += "<br>If correct press <font color=\"green\">Send</font>.<br>If not correct press <font color=\"red\">Cancel</font>";
+						
+				}
+				makeTable();
+		div(id='buttons')
+			a(data-role='button' style='background: green; color: white;' href='/sendMail') Send
+			a(data-role='button' style='background: red; color: white;' href='/') Cancel
+
 		div(data-role='footer')
-			h4 Hello World
+			h4 Call 512-587-0784 if broken
 
 

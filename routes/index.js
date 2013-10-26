@@ -2,7 +2,6 @@
 /*
  * GET home page.
  */
-var m = require('../public/javascripts/something.js');
 exports.index = function(req, res){
 	var arr = new Array();
 
@@ -12,8 +11,8 @@ exports.index = function(req, res){
 //		arr.push(i);
 
 	arr[0] = '4018';
-	console.log('made it here');
+	console.log('array filled in');
 	res.render('index', {
 	units: JSON.stringify(arr),
-	fs : { sayHi: m.doSomething } });
+});
 };
