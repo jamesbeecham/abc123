@@ -4,16 +4,19 @@ block content
 	div(data-role='page' data-theme='a')
 		div(data-role='header')
 			h1 235 WVB
-		div(id='table' data-role='content')
+		div(id='confirm' data-role='content')
+			p Hello
 			script.
 				function makeTable() {
 					var unit = !{dest};
-					var divEle = document.getElementById("table");
+					alert('here ' + unit.Unit);
+					var divEle = document.getElementById("confirm");
+					alert(divEle);
 					divEle.innerHTML += "You have selected unit <font color=\"#00CCFF\">" + unit.Unit + "</font>, is this correct?<br><br>";	
 					for(var ii = 0; ii<unit.Name.length; ii++) 
 						divEle.innerHTML += "Name:    <font color=\"#00CCFF\">" + unit.Name[ii] + "</font><br>";
 					divEle.innerHTML += "<br>If correct press <font color=\"green\">Send</font>.<br>If not correct press <font color=\"red\">Cancel</font>";
-						
+			
 				}
 				makeTable();
 		div(id='buttons')

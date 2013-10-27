@@ -5,16 +5,19 @@ block content
 		div(data-role='header')
 			h1 235 WVB
 		div(data-role='content')
-			ul(id='table' data-role='listview' data-filter='true' data-diverdertheme='b')
+			ul(id='table' data-role='listview' data-insert='true' data-filter='true' data-diverdertheme='b')
 				li(id='Units' data-role='list-divider') Units
 					script.
 						function fillUnits() {
 							console.log('filling units');
+							var htmlString = '<li><a href=\"/external?id=';
+							var htmlString2 = '\">';
+							var htmlString3 = '</a></li>';
 							var unitsArr = !{units};
-							var divEle = document.getElementById("Units");
+							var divEle = document.getElementById("table");
 							for (var i = 0; i<unitsArr.length; i++) {
 								var unit = unitsArr[i].Unit;
-								divEle.innerHTML += "<li><a id=\"btn\" href=\"external?id=" + unit + "\" data-role=\"button\" on-click=\"changePage()\">" + unit + "</a></li>";
+								divEle.innerHTML += htmlString + unit + htmlString2 + unit + htmlString3;
 							}
 						}
 						fillUnits();

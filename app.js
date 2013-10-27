@@ -18,62 +18,55 @@ function sortByKey(array, key) {
     });
 }
 var buttons =[{ Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 1018,
+		 Unit: '1018',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 1002,
+		 Unit: '1002',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 2002,
+		 Unit: '2002',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 2202,
+		 Unit: '2202',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 3004,
+		 Unit: '3004',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 3002,
+		 Unit: '3002',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 5102,
+		 Unit: '5102',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 4612,
+		 Unit: '4612',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 4018,
+		 Unit: '4018',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'},
 	       { Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: 1562,
+		 Unit: '1562',
 		email: 'james.d.beecham@gmail.com',
 		phonenum: '5125870784',
 		carrier: 'sprint'}];
-
-for(var jj = 1000; jj < 6000; jj+=35)
-	buttons.push({ Name: ['James Beecham', ' Rachel Beecham'],
-		 Unit: jj,
-		email: 'james.d.beecham@gmail.com',
-		phonenum: '5125870784',
-		carrier: 'sprint'});
 
 
 function lookupApt(unit) {
@@ -160,11 +153,10 @@ app.get('/sendMail', function(req, res){
 	res.render('mailSent', { dest : JSON.stringify(dest),});
 });
 app.get('/external', function(req, res){
-	var arr2 = new Array();
 	var unit = req.param('id');
 	var dest = lookupApt(unit);
 	current_selection = dest;
-	console.log('email ' + dest.email + 'num ' + dest.phonenum + 'name ' + dest.Name[0]);
+	console.log(unit+ 'email ' + dest.email + 'num ' + dest.phonenum + 'name ' + dest.Name[0]);
 
 
 	res.render('external', {
