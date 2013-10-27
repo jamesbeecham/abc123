@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	div(data-role='page' data-theme='a')
+		div(data-role='header')
+			h1 Login
+			p If you do not know your login info please call 512-587-0784
+		div(data-role='content')
+			form(action='/login',method='post')
+				div(data-role='fieldcontain')
+					fieldset(data-role='controlgroup')
+						label(for='username') username
+							input(id='username',type='text',value='',placeholder='',name='username')
+				div#passworddiv(data-role='fieldcontain')
+					fieldset(data-role='controlgroup')
+						label(for='password') password
+							input(id='password',type='password',value='',placeholder='',name='password')
+				div(data-role='fieldcontain')   
+					input(type='submit',value='Log in',data-transition='fade', data-theme='c')
+
+		div(data-role='footer')
+			h4 Call 512-587-0784 for help
