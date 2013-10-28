@@ -1,5 +1,27 @@
 extends layout
 
 block content
-  h1= title
-  p Suck my dick #{title}
+	div(data-role='page' data-theme='a')
+		div(data-role='header')
+			h1 235 WVB
+		div(data-role='content')
+			ul(id='table' data-role='listview' data-insert='true' data-filter='true' data-diverdertheme='b')
+				li(id='Units' data-role='list-divider') Units
+					script.
+						function fillUnits() {
+							console.log('filling units');
+							var htmlString = '<li><a href=\"/external?id=';
+							var htmlString2 = '\">';
+							var htmlString3 = '</a></li>';
+							var unitsArr = !{units};
+							var divEle = document.getElementById("table");
+							for (var i = 0; i<unitsArr.length; i++) {
+								var unit = unitsArr[i].Unit;
+								divEle.innerHTML += htmlString + unit + htmlString2 + unit + htmlString3;
+							}
+						}
+						fillUnits();
+		div(data-role='footer')
+			h4 Call 512-587-0784 if broken
+
+

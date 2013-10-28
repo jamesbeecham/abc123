@@ -9,9 +9,7 @@ block content
 			script.
 				function makeTable() {
 					var unit = !{dest};
-					alert('here ' + unit.Unit);
 					var divEle = document.getElementById("confirm");
-					alert(divEle);
 					divEle.innerHTML += "You have selected unit <font color=\"#00CCFF\">" + unit.Unit + "</font>, is this correct?<br><br>";	
 					for(var ii = 0; ii<unit.Name.length; ii++) 
 						divEle.innerHTML += "Name:    <font color=\"#00CCFF\">" + unit.Name[ii] + "</font><br>";

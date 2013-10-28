@@ -3,25 +3,16 @@ extends layout
 block content
 	div(data-role='page' data-theme='a')
 		div(data-role='header')
-			h1 235 WVB
+			h1 Welcome
+			p Search below to send notification
 		div(data-role='content')
-			ul(id='table' data-role='listview' data-insert='true' data-filter='true' data-diverdertheme='b')
-				li(id='Units' data-role='list-divider') Units
-					script.
-						function fillUnits() {
-							console.log('filling units');
-							var htmlString = '<li><a href=\"/external?id=';
-							var htmlString2 = '\">';
-							var htmlString3 = '</a></li>';
-							var unitsArr = !{units};
-							var divEle = document.getElementById("table");
-							for (var i = 0; i<unitsArr.length; i++) {
-								var unit = unitsArr[i].Unit;
-								divEle.innerHTML += htmlString + unit + htmlString2 + unit + htmlString3;
-							}
-						}
-						fillUnits();
+			form(action='/search',method='post')
+				div(data-role='fieldcontain')
+					fieldset(data-role='controlgroup')
+						label(for='unit') unit
+							input(id='unitSubmit',type='tel',value='',placeholder='Enter Unit Number..',name='unitSubmit')
+				div(data-role='fieldcontain')   
+					input(type='submit',value='Search',data-transition='fade', data-theme='c')
+
 		div(data-role='footer')
-			h4 Call 512-587-0784 if broken
-
-
+			h4 Call 512-587-0784 for help
