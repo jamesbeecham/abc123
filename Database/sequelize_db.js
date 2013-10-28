@@ -26,10 +26,10 @@ createOrUpdateParams = function (database_object, data_source, params) {
 
 exports.getSpicePort = function (name) {
 	VM.find(name).error( function (err) {
-		LOG.error(err);
+		//LOG.error(err);
 		return {message : err};
 	}).success( function (vm) {
-		LOG.debug(vm.spicePort);
+		//LOG.debug(vm.spicePort);
 		return vm.spicePort;
 	});
 }
@@ -38,7 +38,7 @@ exports.findAll = function (table, callback, callback_args, searchKey) {
 	var entries = new Array();
 	Models[table].findAll({ where: searchKey})
 		.error( function (err) {
-			LOG.error(err);
+			//LOG.error(err);
 			if (callback != null) {
 				callback_args['Code']=1;
 				callback_args['Message'] = err.message;
@@ -64,7 +64,7 @@ exports.findAll = function (table, callback, callback_args, searchKey) {
 exports.removeDbEntry = function (table, searchKey, searchOptions, callback, callback_args) {
 	Models[table].find(searchKey, searchOptions)
 		.error ( function (err) {
-			LOG.error(err);
+			//LOG.error(err);
 			if (callback != null) {
 				callback_args['Code']=1;
 				callback_args['Message'] = err.message;
@@ -87,9 +87,11 @@ exports.removeDbEntry = function (table, searchKey, searchOptions, callback, cal
 }
 
 exports.getDbEntry = function (table, searchKey, searchOptions, callback, callback_args) {
+	console.log(searchKey.toString()+'\n');
 	Models[table].find(searchKey, searchOptions)
 		.error( function (err) {
-			LOG.error(err);
+			//LOG.error(err);
+			console.log(err);
 			if (callback != null) {
 				callback_args['Code']=1;
 				callback_args['Message'] = err.message;
@@ -97,10 +99,12 @@ exports.getDbEntry = function (table, searchKey, searchOptions, callback, callba
 			}
 		})
 		.success( function (entry) {
+			console.log('success\n'+ JSON.stringify(entry));
 			callback_args['entry'] = entry;
-			LOG.debug('Success looking up calling callback?');
+			callback_args['Code'] = 0;
+			//LOG.debug('Success looking up calling callback?');
 			if (callback != null ) {
-				LOG.debug('yes calling');
+				//LOG.debug('yes calling');
 				callback(callback_args);
 			}
 			return;
@@ -110,7 +114,7 @@ exports.getDbEntry = function (table, searchKey, searchOptions, callback, callba
 exports.findAndCountAll = function (table, searchKey, searchOptions, callback, callback_args) {
 	Models[table].findAndCountAll(searchKey, searchOptions)
 		.error( function (err) {
-			LOG.error(err);
+			//LOG.error(err);
 			if (callback != null) {
 				callback_args['Code']=1;
 				callback_args['Message'] = err.message;
@@ -131,7 +135,7 @@ exports.addDbEntry = function (table, data, callback, callback_args) {
 	createOrUpdateParams(Models[table], data, params);
 	Models[table].create(params)
 		.error(function (err) {
-			LOG.error(err);
+			//LOG.error(err);
 			if (callback != null) {
 				callback_args['Code']=1;
 				callback_args['Message'] = err.message;
@@ -158,7 +162,7 @@ exports.getDbEntries = function (table, callback, callback_args) {
 		callback_args['entries'] = entries;
 		callback(callback_args);
 	}).error(function (err) {
-		LOG.error(err);
+		//LOG.error(err);
 		if (callback != null) {
 			callback_args['Code']=1;
 			callback_args['Message'] = err.message;
@@ -172,7 +176,7 @@ exports.lookupOrAddDbEntry = function (table, data, primaryKey, callback, callba
 	createOrUpdateParams(Models[table], data, params);
 	Models[table].findOrCreate(primaryKey, params)
 		.error(function (err) {
-			LOG.error(err);
+			//LOG.error(err);
 			if (callback != null) {
 				callback_args['Code']=1;
 				callback_args['Message'] = err.message;
@@ -187,7 +191,7 @@ exports.lookupOrAddDbEntry = function (table, data, primaryKey, callback, callba
 				createOrUpdateParams(v, data, v);
 				//All fields should be updated at this point.
 				v.save().error(function(err) {
-					LOG.error(err.message);
+					//LOG.error(err.message);
 					if (callback != null) {
 						callback_args['Code']=1;
 						callback_args['Message'] = err.message;
