@@ -1,5 +1,6 @@
-var mail = require('../node-email-templates/examples/nodemailer/work.js');
+var mail = require('../node-email-templates/examples/nodemailer/index.js');
 var login = require('../login.js');
+var db = require('../Database/db.js');
 
 exports.loginPost = function (req, res) {
 	var username = req.param('username');
@@ -15,8 +16,13 @@ exports.searchPost = function (req, res) {
  	}
 	console.log(req.body + 'posting the search data');
         var unitQuery = req.param('unitSubmit');
+	//FIXME do hardcode this. get this from the user session!!!
+	//FIXME dont hae the null in this call maybe? restructre or fuck it?
+	db.searchForUnit(unitQuery, req.session.table, null, { Request: req, Response: res});
+}
 
-        res.redirect('/external?id='+unitQuery);
+exports.searchGet = function (req, res) {
+	res.redirect('/');
 }
 
 exports.sendMail = function (req, res) {
@@ -25,22 +31,23 @@ exports.sendMail = function (req, res) {
 		return;
  
 	}
-	var dest = current_selection;
+	var pendingUnit = req.param('pendingUnit');
+	var pendingSeqNum = req.param('pendingSeqNum');
 
+	var email = req.param('email').split(',');
+	console.log('look here' + JSON.stringify(email));
+	var phonenum = req.param('phone').split(',');
+	console.log('look agagin ' + JSON.stringify(phonenum));
         console.log('sending mail');
-        mail.sendTxtMsg();
-        mail.sendEmail();
+	mail.sendMessages(JSON.stringify(email.concat(phonenum)), { Request: req, Response: res}, pendingUnit, pendingSeqNum);
         console.log('done sending');
-        res.render('mailSent', { dest : JSON.stringify(dest),});
 }
 
-exports.external = function (req, res) {
+exports.external = function (req, res, dest) {
 	if (login.isLoggedIn(req) == 1) {
 		res.redirect('/login');
 		return;
 	}
-	var unit = req.param('id');
-	var dest = {};
 
         res.render('external', {
         dest : JSON.stringify(dest),

@@ -7,7 +7,6 @@ function checkLoginPassword (params) {
 		console.log('Database access failed!! ' + params.Messsage);
 	else
 		console.log('good');
-	//If database did not match the username fail the login
 	if (params.entry == null) {
 		params.Response.redirect('/login');
 		return;
@@ -19,6 +18,7 @@ function checkLoginPassword (params) {
 		return;
 	} else {
 		params.Request.session.logged_in = 'good';
+		params.Request.session.table = params.entry.Table;
 		params.Response.redirect('/');
 		return;
 	}

@@ -5,7 +5,6 @@ block content
 		div(data-role='header')
 			h1 235 WVB
 		div(id='confirm' data-role='content')
-			p Hello
 			script.
 				function makeTable() {
 					var unit = !{dest};
@@ -18,6 +17,19 @@ block content
 				}
 				makeTable();
 		div(id='buttons')
+			script.
+				function makeButtons() {
+					var dest = !{dest};
+					alert('happy?\n' + JSON.stringify(dest));
+					var htmlString1 = "<a class=\"ui-btn ui-shadow ui-btn-corner-all ui-btn-up-a\" href=\"/sendMail?email=" + dest.Email.toString() + ""; 
+					var htmlString2 = "&pendingUnit=" + dest.Unit + "&pendingSeqNum=" + dest.SeqNumber + "&phone=" + dest.PhoneNumber.toString() + "\" style=\"background: green; color: white;\" data-role=\"button\" data-corners=\"true\" data-shadow=\"true\" data-iconshadow=\"true\" data-wrapperels=\"span\" data-theme=\"a\"><span class=\"ui-btn-inner ui-btn-corner-all\"><span class=\"ui-btn-text\">Send</span></span></a>";
+ 
+					var divEle = document.getElementById("buttons");
+					divEle.innerHTML += htmlString1 + htmlString2;					
+					console.log(divEle.innerHTML);
+				}
+				makeButtons();
+
 			a(data-role='button' style='background: green; color: white;' href='/sendMail') Send
 			a(data-role='button' style='background: red; color: white;' href='/') Cancel
 

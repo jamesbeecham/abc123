@@ -20,12 +20,12 @@ for (var model in Models) {
 	console.log(ModelsDirectory+'/'+model+'.js');
     module.exports[model] = database.import(__dirname + '/' + ModelsDirectory + '/' + model + '.js');
 }
-
+/*
 database.sync().success(function () {
 	console.log('Success creating table');
 	}).error( function (err) {
 		console.log('failed : ' + err);
 	});
-
+*/
 // Export the database connection
 exports.database = database;
