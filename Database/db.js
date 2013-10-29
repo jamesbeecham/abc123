@@ -30,9 +30,11 @@ function updateUnitSeqNumber (params) {
 	//FIXME check code here I guess?
 	if (params['Code'] == 1)
 		console.log('Shit adding to pending failed');
-
-	sequelize.lookupOrAddDbEntry(params.TableId, { SeqNumber: params.pendingSeqNum+1}, { where : { Unit: params.pendingUnit}}, 
+	console.log('here is table id before calling ' + params.TableId);
+	var updatedSeq = parseInt(params.pendingSeqNum, 10) + 1;
+	sequelize.lookupOrAddDbEntry(params.TableId, { SeqNumber: updatedSeq}, { Unit: params.pendingUnit}, 
 					function (params) {
+						console.log('fuck code ' + params.Code);
 						params.HTTP.Response.render(params.renderPage);}, params);
 }
 
@@ -43,7 +45,7 @@ exports.searchForUnit = function (unit, table, callback, params) {
 		params.Response.redirect('/');
 	}
 	params['unitQuery'] = unit;
-	sequelize.getDbEntry(table, { where : { Unit: unit}}, {}, checkUnitSearch, params);
+	sequelize.getDbEntry(table,{ where: { Unit: unit}}, {}, checkUnitSearch, params);
 }
 
 exports.addToPending = function (table, callback_args) {

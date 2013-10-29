@@ -20,6 +20,7 @@ createOrUpdateParams = function (database_object, data_source, params) {
 			if (database_object.hasOwnProperty(prop) ||
 				database_object.rawAttributes.hasOwnProperty(prop))
 				params[prop] = obj;
+			console.log('look here for prop ' + prop);
 		}
 	}
 }
@@ -173,10 +174,11 @@ exports.getDbEntries = function (table, callback, callback_args) {
 
 exports.lookupOrAddDbEntry = function (table, data, primaryKey, callback, callback_args) {
 	var params = {};
+	console.log(primaryKey);
 	createOrUpdateParams(Models[table], data, params);
 	Models[table].findOrCreate(primaryKey, params)
 		.error(function (err) {
-			//LOG.error(err);
+			console.log(err);
 			if (callback != null) {
 				callback_args['Code']=1;
 				callback_args['Message'] = err.message;
@@ -185,10 +187,13 @@ exports.lookupOrAddDbEntry = function (table, data, primaryKey, callback, callba
 	
 		})
 		.success(function(v, created) {
+			console.log('this is dumb \n' + created + ' ' + JSON.stringify(v));
 			//Check if the entry was found. If so created is false. 
 			//we then need to update the fields
 			if (created == false) {
+				console.log('not creatd!!!!!');
 				createOrUpdateParams(v, data, v);
+				console.log(JSON.stringify(v));
 				//All fields should be updated at this point.
 				v.save().error(function(err) {
 					//LOG.error(err.message);
