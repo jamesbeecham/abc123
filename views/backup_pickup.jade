@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	div(data-role='page' data-theme='a')
+		div(data-role='header')
+			h1 Welcome
+		div(data-role='content')
+			form(action='', method='post',class='sigPad')
+				label(for='name') Sign that shit
+					input(type='text', id='name', name='name', class='name')
+					p (class='typeItDesc') Review your sig
+					p (class='drawItDesc') Draw your sig
+					ul (class='sigNav')
+						li (class='typeIt')
+							a(href='#type-it',class='current') type it
+						li (class='drawIt')
+							a(href='#draw-it') draw it
+						li (class='clearButton')
+							a(href='#clear') Clear
+
+					div (class='sig sigWrapper')
+						div(class='typed')
+						canvas(class='pad', width='198' height='100')
+						input(type='hidden', name='output', class='output')
+					button(type='submit') submit
+
+		div(data-role='footer')
+			h4 Call 512-587-0784 for help

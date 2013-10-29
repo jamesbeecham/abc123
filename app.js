@@ -54,6 +54,9 @@ app.get('/', routes.index);
 app.get('/sendMail', routes.sendMail);
 app.get('/external', routes.external);
 app.get('/login', routes.login);
+app.get('/pickup', function(req, res) {
+		res.render('pickup');
+});
 app.get('/users', user.list);
 app.get('/search', routes.searchGet);
 http.createServer(app).listen(app.get('port'), function(){
