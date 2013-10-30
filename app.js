@@ -55,7 +55,12 @@ app.get('/sendMail', routes.sendMail);
 app.get('/external', routes.external);
 app.get('/login', routes.login);
 app.get('/pickup', function(req, res) {
-		res.render('pickup');
+		var obj = { '4018' : [0,1,2],
+				'1011' : [2,45,6],
+				'2020' : [19,9,7,56,3],
+			}
+		res.render('pickup_bad',
+			{ pending: JSON.stringify(obj)});
 });
 app.get('/users', user.list);
 app.get('/search', routes.searchGet);

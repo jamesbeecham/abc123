@@ -1,0 +1,48 @@
+extends layout
+
+block content
+	div(id='page2', data-role='page', data-theme='a')
+		div(data-role='header')
+			h1 Pickup menu
+		div(data-role='content', id='pending_list')
+			script.
+				function makePendingList () {
+					var pendingObj = !{pending};
+					console.log(pendingObj);
+					var htmlMain = "<ul data-role=\"listview\" data-filter=\"true\" id=\"outer-ul\">";
+					var htmlUnitOpen = "<li><div data-role=\"collapsible\" data-content-theme=\"c\"><h3>";
+					var htmlUnitId = "</h3><ul data-role=\"listview\" id=\"";
+					var htmlUnitClose = "\">";
+					var htmlPackage1 = "<li><a href=\"/signature?unit=";
+					var htmlPackage2 = "&refnum=";
+					var htmlPackage3 = "\">";
+					var htmlPackage4 = "</a></li>";
+					var htmlPackageEnd = "</ul>";
+					var htmlUnitEnd = "</div></li>";
+					var count = 0;
+					var buffer = "";
+					var divEle = document.getElementById("pending_list");
+					for (var unit in pendingObj) {
+						var pendingArr = pendingObj[unit];
+						if (count == 0) {
+							buffer += htmlMain;
+						}
+						buffer += htmlUnitOpen + unit + htmlUnitId + unit + htmlUnitClose;
+						//It is assumed that if you are in the pending obj you have atleast one package waiting
+						for (var ii = 0; ii < pendingArr.length; ii++)
+							buffer += htmlPackage1 + unit + htmlPackage2 + pendingArr[ii] + htmlPackage3 + pendingArr[ii] + htmlPackage4;
+						//now that we are done with that unit, close the listview
+						buffer += htmlPackageEnd;
+						//now end the unit
+						buffer += htmlUnitEnd;
+						count++;
+					}
+					divEle.innerHTML += buffer;
+
+					var style = document.createElement('style');
+					style.innerHTML = ".ui-listview-filter:nth-child(n+" + count + ") {display:none;}";
+					document.body.appendChild(style);
+				}
+				makePendingList();
+		div(data-role='footer')
+			h4 Bye
