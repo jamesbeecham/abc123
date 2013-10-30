@@ -1,3 +1,3 @@
 $(document).on('pageinit', '.sigPad', function () {
-	$('.sigPad').signaturePad({drawOnly: true});
+//	$('.sigPad').signaturePad({drawOnly: true});
 }); 

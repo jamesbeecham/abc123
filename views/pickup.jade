@@ -1,1 +1,10 @@
-include require-drawn-signature.html
+extends layout
+
+block content
+	div(id='page2', data-role='page', data-theme='a')
+		div(data-role='header')
+			h1 Pickup menu
+		div(data-role='content')
+			include pick.html
+		div(data-role='footer')
+			h4 Bye

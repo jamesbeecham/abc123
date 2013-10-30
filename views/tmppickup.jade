@@ -1,0 +1,31 @@
+extends layout
+
+block content
+	div(data-role='page', data-theme='a')
+		div(data-role='header')
+			h1 Pickup menu
+		div(data-role='content')
+			ul(data-role='listview', data-filter='true', id='outer-ul')
+				li
+					div(date-role='collapsible', data-content=theme='c') 
+						h3 First collapsed List
+						ul(data-role='listview')
+						li
+								a(href='index.html') Acura
+						li
+								a(href='index.html') Abvv	
+						li
+								a(href='index.html') asdf
+
+				li
+					div(date-role='collapsible', data-content=theme='c') 
+						h3 second collapsed List
+						ul(data-role='listview')
+						li
+								a(href='index.html') Acura
+						li
+								a(href='index.html') Abvv	
+						li
+								a(href='index.html') asdf
+		div(data-role='footer')
+			h4 Bye
