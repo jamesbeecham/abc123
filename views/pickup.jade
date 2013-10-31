@@ -1,31 +1,51 @@
 extends layout
 
 block content
-	div(data-role='page', data-theme='a')
+	div(id='page2', data-role='page', data-theme='a')
 		div(data-role='header')
 			h1 Pickup menu
-		div(data-role='content')
-			ul(data-role='listview', data-filter='true', id='outer-ul')
-				li
-					div(date-role='collapsible', data-content=theme='c') 
-						h3 First collapsed List
-						ul(data-role='listview')
-						li
-								a(href='index.html') Acura
-						li
-								a(href='index.html') Abvv	
-						li
-								a(href='index.html') asdf
+		div(data-role='content', id='pending_list')
+			script.
+				function makePendingList () {
+					alert('made it in');
+					var pendingObj = !{pendings};
+					console.log('1' + pendingObj);
+					var htmlMain = "<ul data-role=\"listview\" data-filter=\"true\" id=\"outer-ul\">";
+					var htmlUnitOpen = "<li><div data-role=\"collapsible\" data-content-theme=\"c\"><h3>";
+					var htmlUnitId = "</h3><ul data-role=\"listview\" id=\"";
+					var htmlUnitClose = "\">";
+					var htmlPackage1 = "<li><a href=\"/signature?unit=";
+					var htmlPackage2 = "&refnum=";
+					var htmlPackage3 = "&createdAt=";
+					var htmlPackage4 = "\">";
+					var htmlPackage5 = "</a></li>";
+					var htmlPackageEnd = "</ul>";
+					var htmlUnitEnd = "</div></li>";
+					var count = 0;
+					var buffer = "";
+					var divEle = document.getElementById("pending_list");
+					for (var unit in pendingObj) {
+						var pendingArr = pendingObj[unit].seqArr;
+						var timeStamp = pendingObj[unit].createdArr;
+						if (count == 0) {
+							buffer += htmlMain;
+						}
+						buffer += htmlUnitOpen + unit + htmlUnitId + unit + htmlUnitClose;
+						//It is assumed that if you are in the pending obj you have atleast one package waiting
+						for (var ii = 0; ii < pendingArr.length; ii++)
+							buffer += htmlPackage1 + unit + htmlPackage2 + pendingArr[ii] + htmlPackage3 + timeStamp[ii] + htmlPackage4 + pendingArr[ii] + htmlPackage5;
+						//now that we are done with that unit, close the listview
+						buffer += htmlPackageEnd;
+						//now end the unit
+						buffer += htmlUnitEnd;
+						count++;
+					}
+					divEle.innerHTML += buffer;
 
-				li
-					div(date-role='collapsible', data-content=theme='c') 
-						h3 second collapsed List
-						ul(data-role='listview')
-						li
-								a(href='index.html') Acura
-						li
-								a(href='index.html') Abvv	
-						li
-								a(href='index.html') asdf
+					var style = document.createElement('style');
+					style.innerHTML = ".ui-listview-filter:nth-of-type(n+2) {display:none;}";
+					document.body.appendChild(style);
+				}
+				makePendingList();
 		div(data-role='footer')
 			h4 Bye

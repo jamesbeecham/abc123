@@ -153,16 +153,15 @@ exports.addDbEntry = function (table, data, callback, callback_args) {
 
 exports.getDbEntries = function (table, callback, callback_args) {
 	var entries = new Array();
-	Models[table].all().success(function (result) {
+	Models[table].all({raw: true}).success(function (result) {
 		for (var ii = 0; ii < result.length; ii++) {
 			entries[ii] = result[ii].selectedValues;
-			//Remove the time stamps
-			delete entries[ii].createdAt;
-			delete entries[ii].updatedAt;
+			console.log(entries[ii]);
 		}
 		callback_args['entries'] = entries;
 		callback(callback_args);
 	}).error(function (err) {
+		console.log(err);
 		//LOG.error(err);
 		if (callback != null) {
 			callback_args['Code']=1;

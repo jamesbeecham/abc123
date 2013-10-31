@@ -7,9 +7,10 @@
   </style>
   <link href="stylesheets/jquery.signaturepad.css" rel="stylesheet">
   <!--[if lt IE 9]><script src="../assets/flashcanvas.js"></script><![endif]-->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 </head>
 <body>
+
   <form method="post" action="" class="sigPad">
     <label for="name">Print your name</label>
     <input type="text" name="name" id="name" class="name">
@@ -20,17 +21,24 @@
     </ul>
     <div class="sig sigWrapper">
       <div class="typed"></div>
-      <canvas class="pad" width="198" height="55"></canvas>
+      <canvas class="pad" width="359" height="90"></canvas>
       <input type="hidden" name="output" class="output">
     </div>
-    <button type="submit">I accept the terms of this agreement.</button>
+    <button type="submit" onclick="testing();">I accept the terms of this agreement.</button>
   </form>
 
   <script src="javascripts/jquery.signaturepad.js"></script>
+  <script src="javascripts/db.js"></script>
   <script>
     $(document).ready(function() {
-      $('.sigPad').signaturePad({drawOnly:true});
+     var api = $('.sigPad').signaturePad({drawOnly:true});
     });
+  </script>
+  <script src="/javascripts/socket.io.js"></script>
+  <script>
+	var socket = io.connect('http://www.universalgolt.com:3000/');
+ 	socket.on('connect', function () { console.log('client connected!');});
+	socket.emit('sendSig', { sig: 'data'});
   </script>
   <script src="javascripts/json2.min.js"></script>
 </body>

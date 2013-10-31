@@ -4,13 +4,12 @@ var sequelize = require('./sequelize_db');
 var http                    = require('http');
 var routes = require('../routes/index.js');
 var mail = require('../node-email-templates/examples/nodemailer/index.js');
-
+var login = require('../login.js');
 
 function checkUnitSearch (params) {
 	if (params.Code == 1)
                 console.log('Database access failed!! ' + params.Messsage);
 		//TODO FIXME NEED TO THIS FOR EVERY DB ACCESS 
-	console.log('db made it here');
         if (params.entry == null) {
 		//TODO error string would go here
 		console.log('unit not found ' + params.unitQuery);
@@ -25,7 +24,6 @@ function checkUnitSearch (params) {
                 return;
         }
 }
-
 function updateUnitSeqNumber (params) {
 	//FIXME check code here I guess?
 	if (params['Code'] == 1)
@@ -36,6 +34,28 @@ function updateUnitSeqNumber (params) {
 					function (params) {
 						console.log('fuck code ' + params.Code);
 						params.HTTP.Response.render(params.renderPage);}, params);
+}
+
+function renderPending (params) {
+	if (params.Code == 1)
+		console.log('shit pending failed');
+
+	console.log('before pending ' + params.entries);
+	routes.pickup(params.Request, params.Response, params.entries);
+}
+
+exports.saveSignature = function (table, Unit, Seq, sig) {
+	sequelize.addDbEntry(table, { unit: Unit, seqnumber : Seq, signature: sig}, function () { console.log('DONE!');}, null);
+}	
+
+exports.getPending = function (table, req, res) {
+	if (login.isLoggedIn(req) == 1) {
+                res.redirect('/login');
+                return;
+ 
+        }
+	console.log('get pending for ' + table);
+	sequelize.getDbEntries(table, renderPending, { Request: req, Response: res});
 }
 
 exports.searchForUnit = function (unit, table, callback, params) {

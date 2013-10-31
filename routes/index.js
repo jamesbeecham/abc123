@@ -2,6 +2,34 @@ var mail = require('../node-email-templates/examples/nodemailer/index.js');
 var login = require('../login.js');
 var db = require('../Database/db.js');
 
+
+exports.pickupQuery = function (req, res) {
+	db.getPending('pending', req, res);
+};
+
+exports.signature = function (req, res) {
+	res.render('captureSignature');
+}
+exports.signatureConfirm = function (req, res) {
+	res.render('signatureConfirm');
+}
+exports.pickup = function (req, res, pendingDB) {
+	console.log(JSON.stringify(pendingDB));
+	var pending = {};
+	for (var ii = 0; ii<pendingDB.length; ii++) {
+		var tmp = pendingDB[ii];
+		if (!pending.hasOwnProperty(tmp.Unit))
+			pending[tmp.Unit] = { seqArr: new Array(),
+						createdArr: new Array(),};
+		pending[tmp.Unit].seqArr.push(tmp.SeqNumber);
+		pending[tmp.Unit].createdArr.push(tmp.createdAt);
+	}
+	
+
+	console.log(JSON.stringify(pending));
+	res.render('pickup', { pendings: JSON.stringify(pending),});
+	return;
+}
 exports.loginPost = function (req, res) {
 	var username = req.param('username');
 	var password = req.param('password');
