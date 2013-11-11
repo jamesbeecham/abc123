@@ -8,10 +8,13 @@ exports.pickupQuery = function (req, res) {
 };
 
 exports.signature = function (req, res) {
-	res.render('captureSignature');
+	res.render('backup_captureSignature');
 }
 exports.signatureConfirm = function (req, res) {
-	res.render('signatureConfirm');
+	res.render('mailSent');
+}
+exports.displaySig = function (req, res) {
+	res.render('displaySig');
 }
 exports.pickup = function (req, res, pendingDB) {
 	console.log(JSON.stringify(pendingDB));
@@ -44,6 +47,10 @@ exports.searchPost = function (req, res) {
  	}
 	console.log(req.body + 'posting the search data');
         var unitQuery = req.param('unitSubmit');
+	if (unitQuery == '') {
+		res.redirect('/');
+		return;
+	}
 	//FIXME do hardcode this. get this from the user session!!!
 	//FIXME dont hae the null in this call maybe? restructre or fuck it?
 	db.searchForUnit(unitQuery, req.session.table, null, { Request: req, Response: res});

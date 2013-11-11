@@ -12,8 +12,6 @@
 <body>
 
   <form method="post" action="" class="sigPad">
-    <label for="name">Print your name</label>
-    <input type="text" name="name" id="name" class="name">
     <p class="drawItDesc">Draw your signature</p>
     <ul class="sigNav">
       <li class="drawIt"><a href="#draw-it" >Draw It</a></li>
@@ -35,10 +33,5 @@
     });
   </script>
   <script src="/javascripts/socket.io.js"></script>
-  <script>
-	var socket = io.connect('http://www.universalgolt.com:3000/');
- 	socket.on('connect', function () { console.log('client connected!');});
-	socket.emit('sendSig', { sig: 'data'});
-  </script>
   <script src="javascripts/json2.min.js"></script>
 </body>

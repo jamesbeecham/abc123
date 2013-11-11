@@ -2,19 +2,21 @@ extends layout
 
 block content
 	div(id='page2', data-role='page', data-theme='a')
+		div
+			a(data-role='button', href='/',data-theme='b') Home
+	
 		div(data-role='header')
 			h1 Pickup menu
 		div(data-role='content', id='pending_list')
 			script.
 				function makePendingList () {
-					alert('made it in');
 					var pendingObj = !{pendings};
 					console.log('1' + pendingObj);
 					var htmlMain = "<ul data-role=\"listview\" data-filter=\"true\" id=\"outer-ul\">";
 					var htmlUnitOpen = "<li><div data-role=\"collapsible\" data-content-theme=\"c\"><h3>";
 					var htmlUnitId = "</h3><ul data-role=\"listview\" id=\"";
 					var htmlUnitClose = "\">";
-					var htmlPackage1 = "<li><a href=\"/signature?unit=";
+					var htmlPackage1 = "<li><a rel=\"external\" href=\"/signature?unit=";
 					var htmlPackage2 = "&refnum=";
 					var htmlPackage3 = "&createdAt=";
 					var htmlPackage4 = "\">";
@@ -40,12 +42,10 @@ block content
 						buffer += htmlUnitEnd;
 						count++;
 					}
-					divEle.innerHTML += buffer;
 
+					divEle.innerHTML += buffer;
 					var style = document.createElement('style');
 					style.innerHTML = ".ui-listview-filter:nth-of-type(n+2) {display:none;}";
 					document.body.appendChild(style);
 				}
 				makePendingList();
-		div(data-role='footer')
-			h4 Bye

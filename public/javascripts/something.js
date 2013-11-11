@@ -7,7 +7,6 @@ $(document).on('pageshow', '.ui-page', function () {
 //	var $f = $(this).find('.ui-listview');
 	if (top.location.pathname === '/pickup') {
 		var $input = $( "form").first().find('input');
-		alert('here');	
 	//create a clone of the filter input on this pseudo-page
         	$clone       = $input.clone(true);
 		$clone.attr('placeholder','Unit for pickup..');

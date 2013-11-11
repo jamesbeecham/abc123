@@ -13,6 +13,8 @@ var app = express();
 var current_selection;
 var crypto = require('crypto');
 var socket = require('socket.io');
+var base64 = require('base64');
+var fs = require('fs');
 
 function done () {
 	console.log("!!!!!!!!!!!!\n\n");
@@ -46,10 +48,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
 app.post('/search', routes.searchPost);
 app.post('/login', routes.loginPost);
 app.post('/signature', routes.signatureConfirm); 
+app.get('/j', routes.displaySig);
 app.get('/', routes.index);
 app.get('/sendMail', routes.sendMail);
 app.get('/external', routes.external);
@@ -69,6 +71,17 @@ var httpServer = http.createServer(app).listen(app.get('port'), function(){
 		socket.on('sendSig', function (data) {
 			console.log('length ' + JSON.stringify(data).length);
 			console.log('here is data rom client ' + JSON.stringify(data));
+			//var decoded_image = new Buffer(data.sig.substring("data:image/png;base64,".length+1), 'base64');
+			var base64data = data.sig.replace(/^data:image\/png;base64,/,"");
+			if (base64data.length != 0) {
+			fs.writeFile("./public/images/signature3.png", base64data, 'base64', function (err) {
+				if (err)
+					console.log('ERROR writting file');
+				else
+					console.log('file saved!!!');
+			
+			});
+			}
 		});
 	});
   console.log('Express server listening on port ' + app.get('port'));

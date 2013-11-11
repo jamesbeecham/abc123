@@ -1,0 +1,31 @@
+extends layout_sig
+
+block content
+	div(data-role='page' data-theme='a')
+		div(data-role='header')
+			h1 Please Sign for your package
+		div(data-role='content')
+			form(action='',method='post',class='sigPad')
+				p(class='drawItDesc') Sign with your finger
+				ul(class='sigNav')
+					li(class='drawIt'): a(href='#draw-it') Draw It
+					li(class='clearButton'): a(href='#clear') Clear
+				div(class='sig sigWrapper current', style='display: block;')
+					div(class='typed')
+					canvas(class='pad',width='359',height='90')
+					input(type='hidden',name='output',class='output')
+				button(type='submit', onclick='testing()') I accept the terms and conditions.
+
+			script.
+				function draw() {
+					$(document).on('pageshow', '.ui-page', function() {
+						console.log('ere bra');
+						var api = $('.sigPad').signaturePad({drawOnly: true});
+					});
+
+					$('.sigPad').trigger("create");
+				}
+				draw();
+
+		div(data-role='footer')
+			h4 Call 512-587-0784 for help

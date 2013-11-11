@@ -14,5 +14,4 @@ function testing() {
 }
 
 function redraw() {
-	alert(hello);
 }
